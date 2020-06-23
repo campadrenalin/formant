@@ -1,0 +1,6 @@
+__pycache__
+*.sw[op]
+*.egg-info
+
+.aws
+.venv
