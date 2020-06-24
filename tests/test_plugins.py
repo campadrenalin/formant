@@ -15,3 +15,8 @@ def test_pubkeys():
     key = plugs.registry.ssh_pubkeys.any_key
     assert key
     assert re.match('ssh-(rsa|dsa) ', key)
+
+def test_ami():
+    ami_id = plugs.registry.ami.amazon_linux.default
+    assert ami_id.startswith('ami-')
+    assert format(plugs.registry.ami.amazon_linux) == ami_id
