@@ -1,5 +1,6 @@
 import sys, os
-from formant import template, plugins
+import logging
+from formant import template, plugins, logger
 
 def parse(argv):
     positional = []
@@ -18,6 +19,10 @@ def parse(argv):
             if eq:
                 flag_args[current_flag] = value
                 current_flag = None
+            continue
+
+        if arg == '-v':
+            logger.setLevel(logging.DEBUG)
             continue
 
         positional.append(arg)
