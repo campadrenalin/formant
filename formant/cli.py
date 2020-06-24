@@ -1,5 +1,5 @@
 import sys, os
-from formant.template import template
+from formant import template, plugins
 
 def parse(argv):
     positional = []
@@ -40,7 +40,7 @@ def fmnt_print(*argv, **env):
 
     text = read_file(*positional)
     try:
-        print(template(text, flag_args, env))
+        print(template(text, flag_args, plugins.registry, env))
     except NameError as ne:
         import re
         name = re.fullmatch(r"name '(\w+)' is not defined", str(ne))

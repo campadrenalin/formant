@@ -1,6 +1,7 @@
 import pytest
 from unittest.mock import patch
 from formant.cli import *
+from formant.plugins.public_ip import ipv4
 
 @pytest.mark.parametrize('argv, pos, flags', [
     ([], [], {}),
@@ -20,6 +21,7 @@ def test_parse(argv, pos, flags):
 files = {
     '-': 'A simple STDIN example',
     'hello.txt': 'Hello, <% USER %>!',
+    'ip_addr.txt': 'Your public IPv4 address is <% public_ip.ipv4 %>.',
 }
 def fake_read_file(filename='-'):
     return files[filename]
@@ -34,6 +36,9 @@ def fake_read_file(filename='-'):
         ('Hello, Bob!\n', '') ),
     (['hello.txt'], {},
         ('', 'Missing parameter: USER\n') ),
+
+    (['ip_addr.txt'], {},
+        (f'Your public IPv4 address is {ipv4()}.\n', '') ),
 ])
 @patch('formant.cli.read_file', fake_read_file)
 def test_fmnt_print(argv, env, expected, capsys):

@@ -4,6 +4,6 @@ from setuptools import setup
 setup(
     name='formant',
     version=0.1,
-    packages=['formant'],
+    packages=['formant', 'formant.plugins'],
     scripts=['bin/formant'],
 )
