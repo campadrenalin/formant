@@ -15,24 +15,6 @@ def find_packages(root='formant.plugins'):
         access_name = remove_prefix(name, prefix)
         yield access_name, name
 
-class FunctionProxy(object):
-    def __init__(self, source):
-        self.source = source
-
-    def __getattr__(self, attr):
-        return getattr(self.source, attr)
-
-    def __call__(self, *args, **kwargs):
-        return self.source(*args, **kwargs)
-
-    def __format__(self, spec=None):
-        return format(self.source(), spec)
-
-    def __str__(self):
-        return format(self, 's')
-    def __repr__(self):
-        return format(self, 'r')
-
 class Plugin(object):
     def __init__(self, name):
         self.name = name
@@ -45,10 +27,7 @@ class Plugin(object):
         return self._mod
 
     def __getattr__(self, attr):
-        got = getattr(self.module, attr)
-        if isinstance(got, types.FunctionType):
-            return FunctionProxy(got)
-        return got
+        return getattr(self.module, attr)
 
 class Registry(object):
     def __init__(self, *roots, include_std=True):

@@ -7,10 +7,6 @@ def test_find_packages():
 
 re_ipv4 = re.compile(r'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
 
-def test_registry_method():
-    ipv4 = plugs.registry.public_ip.ipv4()
-    assert re_ipv4.fullmatch(ipv4)
-
 def test_registry_format():
     ipv4 = format(plugs.registry.public_ip.ipv4)
     assert re_ipv4.fullmatch(ipv4)

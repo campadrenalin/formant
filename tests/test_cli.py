@@ -38,7 +38,7 @@ def fake_read_file(filename='-'):
         ('', 'Missing parameter: USER\n') ),
 
     (['ip_addr.txt'], {},
-        (f'Your public IPv4 address is {ipv4()}.\n', '') ),
+        (f'Your public IPv4 address is {ipv4}.\n', '') ),
 ])
 @patch('formant.cli.read_file', fake_read_file)
 def test_fmnt_print(argv, env, expected, capsys):
